@@ -17,6 +17,7 @@ const testimonialRoute = require("./routes/testimonial.route");
 const settingsRoute = require('./routes/settings.route');
 const bannerRoute = require("./routes/banner.route");
 const aboutRoute = require("./routes/about.route");
+const priceRangeRoute = require("./routes/priceRange.route");
 
 app.use('/api/auth',authRoute)
 app.use('/api/categories',categoryRouter);
@@ -27,6 +28,7 @@ app.use("/api/testimonials", testimonialRoute);
 app.use('/api/settings', settingsRoute);
 app.use("/api/banners", bannerRoute);
 app.use("/api/about", aboutRoute);
+app.use("/api/price-ranges", priceRangeRoute);
 
 app.get("/",(req,res)=>{
     res.json({

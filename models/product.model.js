@@ -25,16 +25,16 @@ const productSchema= new mongoose.Schema({
         ref: "Branch"
     }],
     images: [
-      {
-        url: {
-          type: String,
-          required: true
-        },
-        public_id: {
-          type: String,
-          required: true
+        {
+            url: {
+                type: String,
+                required: true
+            },
+            public_id: {
+                type: String,
+                required: true
+            }
         }
-      }
     ],
     colors:[{
         type:String
@@ -42,6 +42,10 @@ const productSchema= new mongoose.Schema({
     sizes:[{
         type:String
     }],
+    featured:{
+        type:Boolean,
+        default:false
+    }
 },{
     timestamps:true
 })
