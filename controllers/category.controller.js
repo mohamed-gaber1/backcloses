@@ -90,25 +90,35 @@ const updateCategory = async (req, res) => {
             });
         }
 
+        // Update name
         if (req.body.name !== undefined) {
             category.name = req.body.name;
         }
 
-        if (req.file) {
-        
-            const result = await uploadToCloudinary(req.file.buffer);
-        
-            // Delete old image
+        // Remove image
+        if (req.body.removeImage === "true" || req.body.removeImage === true) {
             if (category.image && category.image.publicId) {
                 await cloudinary.uploader.destroy(category.image.publicId);
             }
-        
-            // Save new image
+
+            category.image = undefined;
+        }
+
+        // Upload new image
+        if (req.file) {
+            // Delete old image first
+            if (category.image && category.image.publicId) {
+                await cloudinary.uploader.destroy(category.image.publicId);
+            }
+
+            const result = await uploadToCloudinary(req.file.buffer);
+
             category.image = {
                 url: result.secure_url,
                 publicId: result.public_id
             };
         }
+
         await category.save();
 
         res.status(200).json({
